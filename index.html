@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus V - Tes Projets</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            @apply text-gray-100 min-h-screen flex flex-col;
+            background: radial-gradient(circle at center, #1a1a2e 0%, #0a0a1a 100%);
+            background-color: #0a0a1a;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1a202c;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #4a5568;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #6b7280;
+        }
+
+        .active-tab {
+            @apply bg-blue-600 text-white shadow-lg;
+            box-shadow: 0 0 15px rgba(66, 153, 225, 0.7);
+        }
+
+        .tab-button:hover {
+            box-shadow: 0 0 10px rgba(66, 153, 225, 0.5);
+        }
+
+        .neon-glow-pink {
+            border: 2px solid rgba(255, 0, 150, 0.7);
+            box-shadow: 0 0 15px rgba(255, 0, 150, 0.6),
+                        0 0 30px rgba(255, 0, 150, 0.4),
+                        0 0 45px rgba(255, 0, 150, 0.2);
+        }
+        .neon-glow-pink:hover {
+            box-shadow: 0 0 25px rgba(255, 0, 150, 0.8),
+                        0 0 50px rgba(255, 0, 150, 0.6),
+                        0 0 75px rgba(255, 0, 150, 0.4);
+        }
+
+        .neon-glow-blue {
+            border: 2px solid rgba(0, 150, 255, 0.7);
+            box-shadow: 0 0 15px rgba(0, 150, 255, 0.6),
+                        0 0 30px rgba(0, 150, 255, 0.4),
+                        0 0 45px rgba(0, 150, 255, 0.2);
+        }
+        .neon-glow-blue:hover {
+            box-shadow: 0 0 25px rgba(0, 150, 255, 0.8),
+                        0 0 50px rgba(0, 150, 255, 0.6),
+                        0 0 75px rgba(0, 150, 255, 0.4);
+        }
+
+        .neon-glow-red {
+            border: 2px solid rgba(255, 0, 0, 0.7);
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.6),
+                        0 0 30px rgba(255, 0, 0, 0.4),
+                        0 0 45px rgba(255, 0, 0, 0.2);
+        }
+        .neon-glow-red:hover {
+            box-shadow: 0 0 25px rgba(255, 0, 0, 0.8),
+                        0 0 50px rgba(255, 0, 0, 0.6),
+                        0 0 75px rgba(255, 0, 0, 0.4);
+        }
+
+        .project-card {
+            transition: transform 0.8s ease-in-out,
+                        box-shadow 0.8s ease-in-out,
+                        opacity 0.2s ease-in-out,
+                        max-height 0.2s ease-in-out,
+                        padding 0.2s ease-in-out,
+                        margin 0.2s ease-in-out;
+            overflow: hidden;
+            will-change: transform, opacity, max-height, box-shadow;
+        }
+
+        .project-card.hidden-card {
+            opacity: 0;
+            max-height: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+            margin-top: 0;
+            margin-bottom: 0;
+            transform: translateY(20px);
+        }
+
+        .project-card:hover {
+            transform: scale(1.03);
+        }
+
+        @keyframes fadeInSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-in {
+            animation: fadeInSlideUp 0.7s ease-out forwards;
+        }
+
+        .header-glow {
+            text-shadow: 0 0 20px rgba(66, 153, 225, 0.9), 0 0 40px rgba(128, 90, 213, 0.7), 0 0 60px rgba(66, 153, 225, 0.5);
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100 font-inter antialiased">
+    <header class="w-full py-8 px-4 md:px-8 lg:px-12 bg-gray-900 border-b border-gray-700 shadow-lg animate-in">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between">
+            <h1 class="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600 mb-6 md:mb-0 header-glow">
+                Nexus V
+            </h1>
+            <nav class="flex flex-wrap justify-center gap-4">
+                <button class="tab-button px-6 py-2 rounded-lg font-semibold text-lg transition-all duration-300 ease-in-out bg-gray-800 text-gray-300 hover:bg-blue-600 hover:text-white active-tab" data-category="all">
+                    Tous les Projets
+                </button>
+                <button class="tab-button px-6 py-2 rounded-lg font-semibold text-lg transition-all duration-300 ease-in-out bg-gray-800 text-gray-300 hover:bg-blue-600 hover:text-white" data-category="jeux">
+                    Jeux
+                </button>
+                <button class="tab-button px-6 py-2 rounded-lg font-semibold text-lg transition-all duration-300 ease-in-out bg-gray-800 text-gray-300 hover:bg-blue-600 hover:text-white" data-category="guides">
+                    Guides
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="flex-grow container mx-auto p-4 md:p-8 lg:p-12">
+        <section id="projects-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <a href="https://freezer609.github.io/scrabble" target="_blank" rel="noopener noreferrer" class="project-card block bg-gray-800 rounded-xl shadow-xl overflow-hidden transform transition-transform duration-300 hover:scale-105 neon-glow-blue" data-category="jeux">
+                <div class="p-6">
+                    <h2 class="text-3xl font-bold text-blue-400 mb-3">Scrabble en ligne</h2>
+                    <p class="text-gray-300 text-lg leading-relaxed mb-4">
+                        Un outil d'aide pour le Scrabble, qui te permet de trouver des mots et de "cheater" un peu !
+                    </p>
+                    <div class="flex items-center text-blue-300 hover:text-blue-200 transition-colors duration-200">
+                        <span class="text-lg font-semibold mr-2">Visiter le site</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                    </div>
+                </div>
+            </a>
+
+            <a href="https://freezer609.github.io/aide-minecraft-bedrock" id="minecraft-bedrock-card" target="_blank" rel="noopener noreferrer" class="project-card block bg-gray-800 rounded-xl shadow-xl overflow-hidden transform transition-transform duration-300 hover:scale-105 neon-glow-pink" data-category="guides">
+                <div class="p-6">
+                    <h2 class="text-3xl font-bold text-pink-400 mb-3">Aide Minecraft Bedrock</h2>
+                    <p class="text-gray-300 text-lg leading-relaxed mb-4">
+                        Des ressources et des astuces pour t'aider à progresser dans Minecraft Bedrock Edition.
+                    </p>
+                    <div class="flex items-center text-pink-300 hover:text-pink-200 transition-colors duration-200">
+                        <span class="text-lg font-semibold mr-2">Visiter le site</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                    </div>
+                </div>
+            </a>
+        </section>
+    </main>
+
+    <footer class="w-full py-6 px-4 md:px-8 lg:px-12 bg-gray-900 border-t border-gray-700 text-center text-gray-500 text-sm">
+        <p>&copy; 2025 Nexus V. Tous droits réservés.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const projectCards = document.querySelectorAll('.project-card');
+
+            const filterProjects = (category) => {
+                projectCards.forEach(card => {
+                    card.classList.add('hidden-card');
+                });
+
+                setTimeout(() => {
+                    let currentDelay = 0;
+                    const priorityCardId = 'minecraft-bedrock-card';
+                    const cardsToShow = [];
+
+                    projectCards.forEach(card => {
+                        const cardCategory = card.dataset.category;
+                        if (category === 'all' || cardCategory === category) {
+                            if (card.id === priorityCardId) {
+                                cardsToShow.unshift(card);
+                            } else {
+                                cardsToShow.push(card);
+                            }
+                        }
+                    });
+
+                    cardsToShow.forEach(card => {
+                        setTimeout(() => {
+                            card.classList.remove('hidden-card');
+                        }, currentDelay);
+                        currentDelay += 100;
+                    });
+                }, 200);
+            };
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    tabButtons.forEach(btn => btn.classList.remove('active-tab'));
+                    button.classList.add('active-tab');
+
+                    const category = button.dataset.category;
+                    filterProjects(category);
+                });
+            });
+
+            filterProjects('all');
+        });
+    </script>
+</body>
+</html>
